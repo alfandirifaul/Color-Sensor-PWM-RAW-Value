@@ -23,6 +23,9 @@ const int pinPWM = 9;  // 1 Output PWM ke Modul Converter
 
 #include "ColorSensorTCS.h"
 
+const int RAW_MIN = 10;  // Nilai kalibrasi minimum
+const int RAW_MAX = 155; // Nilai kalibrasi maksimum
+
 SensorTCS sensorWarna(
   pinS0, pinS1, pinS2, pinS3, pinOut, pinPWM
 );
@@ -30,15 +33,12 @@ SensorTCS sensorWarna(
 void setup() {
   Serial.begin(9600);
   
-  // Masukkan nilai kalibrasi (RAW_MIN, RAW_MAX)
-  sensorWarna.setKalibrasi(10, 155);
+  sensorWarna.setKalibrasi(RAW_MIN, RAW_MAX);
   
-  // Inisialisasi sensor
   sensorWarna.begin();
 }
 
 void loop() {
-  // Jalankan semua proses pembacaan dan pengiriman ke PLC dengan 1 baris kode
   sensorWarna.jalankanSensor();
   
   delay(100);
